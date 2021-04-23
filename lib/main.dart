@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -30,7 +30,9 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  int numeroPregunta = 0;
+  List<Icon> answerPoints = [];
+  int numberOfQuestion = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -43,11 +45,11 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                bancoPreguntas[numeroPregunta].textoPregunta,
+                questions[numberOfQuestion].statement,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -68,29 +70,29 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  if (numeroPregunta >= bancoPreguntas.length - 1) {
+                  if (numberOfQuestion >= questions.length - 1) {
                     Alert(
                       context: context,
                       title: 'Final!',
                       desc: 'Llegaste al final del cuestionario',
                     ).show();
-                    numeroPregunta=0;
-                    guardaPuntos = [];
+                    numberOfQuestion=0;
+                    answerPoints = [];
                   } else {
-                    bool respuestaCorrecta = bancoPreguntas[numeroPregunta].respuestaPregunta;
-                    if (respuestaCorrecta == true) {
-                      guardaPuntos.add(Icon(
+                    bool isCorrectAnswer = questions[numberOfQuestion].isTrue;
+                    if (isCorrectAnswer) {
+                      answerPoints.add(Icon(
                         Icons.check,
                         color: Colors.green,
                       ));
                     } else {
-                      guardaPuntos.add(Icon(
+                      answerPoints.add(Icon(
                         Icons.close,
                         color: Colors.red,
                       ));
                     }
                     setState(() {
-                      numeroPregunta++;
+                      numberOfQuestion++;
                     });
                   }
                 });
@@ -113,29 +115,29 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  if (numeroPregunta >= bancoPreguntas.length - 1) {
+                  if (numberOfQuestion >= questions.length - 1) {
                     Alert(
                       context: context,
                       title: 'Final!',
                       desc: 'Llegaste al final del cuestionario',
                     ).show();
-                    numeroPregunta=0;
-                    guardaPuntos = [];
+                    numberOfQuestion=0;
+                    answerPoints = [];
                   } else {
-                    bool respuestaCorrecta = bancoPreguntas[numeroPregunta].respuestaPregunta;
-                    if (respuestaCorrecta == true) {
-                      guardaPuntos.add(Icon(
+                    bool isCorrectAnswer = questions[numberOfQuestion].isTrue;
+                    if (isCorrectAnswer) {
+                      answerPoints.add(Icon(
                         Icons.check,
                         color: Colors.green,
                       ));
                     } else {
-                      guardaPuntos.add(Icon(
+                      answerPoints.add(Icon(
                         Icons.close,
                         color: Colors.red,
                       ));
                     }
                     setState(() {
-                      numeroPregunta++;
+                      numberOfQuestion++;
                     });
                   }
                 });
@@ -146,7 +148,7 @@ class _QuizPageState extends State<QuizPage> {
         ),
         //TODO: Add a Row here as your score keeper
         Row(
-          children: guardaPuntos,
+          children: answerPoints,
         )
       ],
     );

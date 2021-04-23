@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 
-List<Pregunta> bancoPreguntas = [
-  Pregunta(p: 'Puedes llevar una vaca a bajar las escaleras, pero, no a subirlas.', r: false),
-  Pregunta(p: 'Aproximadamente una cuarta parte de los huesos humanos están en los pies.', r: true),
-  Pregunta(p: 'La sangre de las babosas es verde.', r: true),
+List<Question> questions = [
+  Question(statement: 'Fue SpaceX fundada por Elon Musk?', isTrue: true),
+  Question(statement: 'La tierra gira alrededor del sol?', isTrue: false),
+  Question(statement: 'La tierra es plana?', isTrue: false),
 ];
-List<Icon> guardaPuntos = [];
-class Pregunta{
-  String textoPregunta;
-  bool respuestaPregunta;
-  Pregunta({String p, bool r}){
-    textoPregunta = p;
-    respuestaPregunta = r;
+
+class Question{
+  String statement;
+  bool isTrue;
+
+  Question( {String statement, bool isTrue} ){
+    this.statement = statement;
+    this.isTrue = isTrue;
   }
 }
