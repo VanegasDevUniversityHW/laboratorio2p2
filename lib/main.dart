@@ -33,6 +33,28 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> answerPoints = [];
   int numberOfQuestion = 0;
 
+  void verifyAnswer(bool answer) {
+    bool isAnswerCorrect = answer == questions[numberOfQuestion].isTrue;
+    
+    answerPoints.add(Icon(
+      isAnswerCorrect ? Icons.check : Icons.close,
+      color: isAnswerCorrect ? Colors.green : Colors.red,
+    ));
+    
+    numberOfQuestion++;
+  }
+  
+  void finishGame() {
+    Alert(
+      context: context,
+      title: 'Final!',
+      desc: 'Llegaste al final del cuestionario',
+    ).show();
+    
+    numberOfQuestion = 0;
+    answerPoints = [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -71,29 +93,9 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 setState(() {
                   if (numberOfQuestion >= questions.length - 1) {
-                    Alert(
-                      context: context,
-                      title: 'Final!',
-                      desc: 'Llegaste al final del cuestionario',
-                    ).show();
-                    numberOfQuestion=0;
-                    answerPoints = [];
+                    finishGame();
                   } else {
-                    bool isCorrectAnswer = questions[numberOfQuestion].isTrue;
-                    if (isCorrectAnswer) {
-                      answerPoints.add(Icon(
-                        Icons.check,
-                        color: Colors.green,
-                      ));
-                    } else {
-                      answerPoints.add(Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      ));
-                    }
-                    setState(() {
-                      numberOfQuestion++;
-                    });
+                    verifyAnswer(true);
                   }
                 });
                 //The user picked true.
@@ -116,29 +118,9 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 setState(() {
                   if (numberOfQuestion >= questions.length - 1) {
-                    Alert(
-                      context: context,
-                      title: 'Final!',
-                      desc: 'Llegaste al final del cuestionario',
-                    ).show();
-                    numberOfQuestion=0;
-                    answerPoints = [];
+                    finishGame();
                   } else {
-                    bool isCorrectAnswer = questions[numberOfQuestion].isTrue;
-                    if (isCorrectAnswer) {
-                      answerPoints.add(Icon(
-                        Icons.check,
-                        color: Colors.green,
-                      ));
-                    } else {
-                      answerPoints.add(Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      ));
-                    }
-                    setState(() {
-                      numberOfQuestion++;
-                    });
+                    verifyAnswer(false);
                   }
                 });
                 //The user picked false.
